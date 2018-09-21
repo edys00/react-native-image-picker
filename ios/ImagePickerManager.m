@@ -182,8 +182,16 @@ RCT_EXPORT_METHOD(showImagePicker:(NSDictionary *)options callback:(RCTResponseS
         self.picker.allowsEditing = true;
     }
     self.picker.modalPresentationStyle = UIModalPresentationCurrentContext;
-    self.picker.cameraFlashMode = UIImagePickerControllerCameraFlashModeOff;
     self.picker.delegate = self;
+    if ([[self.options objectForKey:@"flashMode"] isEqualToString:@"on"]) {
+        self.picker.cameraFlashMode = UIImagePickerControllerCameraFlashModeOff;
+    }
+    else if ([[self.options objectForKey:@"flashMode"] isEqualToString:@"off"]) {
+        self.picker.cameraFlashMode = UIImagePickerControllerCameraFlashModeOff;
+    }
+    else {
+        self.picker.cameraFlashMode = UIImagePickerControllerCameraFlashModeAuto;
+    }
 
     // Check permissions
     void (^showPickerViewController)() = ^void() {
